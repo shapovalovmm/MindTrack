@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій щоденник</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="page-diary">
+
+<header>
+    <a id="homeBtn">Головна</a>
+    <a id="themeBtn">Тема</a>
+    <a id="historyBtn">Історія записів</a>
+    <a href="#stats">Статистика</a>
+    <a href="index.html">Вихід</a>
+</header>
+
+<div class="sticky-menu" id="stickyMenu">
+    <img src="icons/logo.png" alt="Логотип" class="sticky-logo">
+    <div class="sticky-nav-links" id="stickyNavLinks">
+        <button id="homeBtnSticky">Головна</button>
+        <button id="themeBtnSticky">Тема</button>
+        <button id="historyBtnSticky">Історія записів</button>
+        <button>Статистика</button>
+        <button onclick="window.location.href='index.html'">Вихід</button>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<main>
+    <h1>Вітаю у твоєму щоденнику!</h1>
+    <p>Тут ти можеш відслідковувати свої записи та настрій.</p>
+</main>
+
+<section id="historySection">
+    <div class="history-controls">
+        <button id="addEntryBtn" class="add-entry-button">Створити запис</button>
+    </div>
+    <div id="diaryListContainer"></div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p class="footer-brand">MindTrack</p>
+        <p class="footer-support">Номер підтримки: +380 (00) 123-45-67</p>
+    </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
