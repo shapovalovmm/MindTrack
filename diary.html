@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій щоденник</title>
+    <title>MindTrack</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body id="page-diary">
 
@@ -12,7 +14,7 @@
     <a id="homeBtn">Головна</a>
     <a id="themeBtn">Тема</a>
     <a id="historyBtn">Історія записів</a>
-    <a href="#stats">Статистика</a>
+    <a id="statsBtn">Статистика</a>
     <a href="index.html">Вихід</a>
 </header>
 
@@ -22,7 +24,7 @@
         <button id="homeBtnSticky">Головна</button>
         <button id="themeBtnSticky">Тема</button>
         <button id="historyBtnSticky">Історія записів</button>
-        <button>Статистика</button>
+        <button id="statsBtnSticky">Статистика</button>
         <button onclick="window.location.href='index.html'">Вихід</button>
     </div>
     <div class="burger-menu" id="burgerMenu">
@@ -33,7 +35,7 @@
 </div>
 
 <main>
-    <h1>Вітаю у твоєму щоденнику!</h1>
+    <h1>Вітаю у твоєму щоденнику MindTrack!</h1>
     <p>Тут ти можеш відслідковувати свої записи та настрій.</p>
 </main>
 
@@ -41,8 +43,77 @@
     <div class="history-controls">
         <button id="addEntryBtn" class="add-entry-button">Створити запис</button>
     </div>
+
+    <div class="filter-controls">
+        <div class="filter-group">
+            <label for="filterDate">Пошук за датою:</label>
+            <input type="date" id="filterDate" class="filter-date-input">
+        </div>
+        <div class="filter-group">
+            <label for="filterMood">Пошук за настроєм:</label>
+            <select id="filterMood" class="filter-mood-select">
+                <option value="">Усі настрої</option>
+                <option value="1">1 (Дуже погано)</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 (Нейтрально)</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10 (Чудово)</option>
+            </select>
+        </div>
+        <div class="filter-group tags-group">
+            <label>Фільтрувати за тегами:</label>
+            <div id="filterTags" class="filter-tags-container">
+            </div>
+        </div>
+        <button id="clearFiltersBtn" class="clear-filters-button">Очистити</button>
+    </div>
+
     <div id="diaryListContainer"></div>
 </section>
+
+<section id="statsSection">
+    <h2>Статистика настрою</h2>
+    <div class="chart-container">
+        <canvas id="averageMoodChart"></canvas>
+    </div>
+</section>
+<div id="modalOverlay"></div>
+<div id="editModal">
+    <h3>Редагування запису</h3>
+    <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+    <form id="editForm">
+        <div class="form-group">
+            <label for="modalTitle">Заголовок:</label>
+            <input type="text" id="modalTitle" required>
+        </div>
+        <div class="form-group">
+            <label for="modalText">Ваш запис:</label>
+            <textarea id="modalText" rows="6"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="modalMoodSlider">Настрій: <span id="modalMoodValue">5</span>/10</label>
+            <input type="range" id="modalMoodSlider" min="1" max="10" value="5">
+        </div>
+        <div class="form-group">
+            <label>Теги:</label>
+            <div id="modalTagsContainer" class="filter-tags-container">
+            </div>
+        </div>
+        <div class="form-group new-tag-group">
+            <input type="text" id="newTagInput" placeholder="Новий тег...">
+            <button type="button" id="addNewTagBtn" class="add-new-tag-btn">Додати</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="modalDeleteBtn" class="modal-delete-btn">🗑️ Видалити</button>
+            <button type="submit" id="modalConfirmBtn" class="modal-confirm-btn">Підтвердити</button>
+        </div>
+    </form>
+</div>
 
 <footer>
     <div class="footer-content">
