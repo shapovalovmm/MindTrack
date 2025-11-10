@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - MindTrack</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="icons/logo.png">
+</head>
+<body id="page-admin">
+
+<div class="sticky-menu" id="stickyMenu">
+  <img src="icons/logo.png" alt="Логотип" class="sticky-logo">
+  <div class="sticky-nav-links" id="stickyNavLinks">
+    <button id="themeBtnSticky">Тема</button>
+    <button onclick="window.location.href='index.html'">Вихід</button>
+  </div>
+  <div class="burger-menu" id="burgerMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<main>
+  <h1>Панель Адміністратора</h1>
+
+  <section class="admin-panel">
+
+    <div class="admin-group">
+      <h3>Пошук користувачів</h3>
+      <label for="userSearchInput">Пошук за Email або ID:</label>
+      <input type="text" id="userSearchInput" placeholder="Введіть email або ID...">
+      <button id="userSearchBtn" class="admin-button">Знайти</button>
+    </div>
+
+    <div class="admin-group">
+      <h3>Керування записами</h3>
+      <label for="deleteDateInput">Видалити всі записи за дату:</label>
+      <input type="date" id="deleteDateInput">
+      <button id="deleteDateBtn" class="admin-button danger-button">Видалити за дату</button>
+    </div>
+
+  </section>
+</main>
+
+<script src="admin.js" defer></script>
+</body>
+</html>
