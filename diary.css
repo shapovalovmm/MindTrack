@@ -1,0 +1,640 @@
+/* --- 1. Глобальні налаштування --- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle, rgba(180,180,180,0.35) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    color: #333;
+    transition: background 0.5s, color 0.5s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark {
+    background: #1e1e1e;
+    color: #eee;
+}
+
+/* --- 2. Статичний Хедер --- */
+header {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 30px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #4b6043;
+    background: transparent;
+    transition: opacity 0.3s;
+}
+
+body.dark header {
+    color: #9ac99a;
+}
+
+header a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s, transform 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+
+header a:hover {
+    color: #2e3d2a;
+    transform: scale(1.05);
+}
+
+body.dark header a:hover {
+    color: #c0e0c0;
+}
+
+/* --- 3. Sticky Menu --- */
+.sticky-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(180, 220, 180, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #aacdaa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-radius: 0 0 20px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.sticky-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+body.dark .sticky-menu {
+    background: rgba(30, 50, 30, 0.95);
+    border-bottom: 1px solid #2a4b2a;
+}
+
+.sticky-logo {
+    height: 40px;
+    width: auto;
+}
+
+.sticky-nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.sticky-nav-links button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #2e3d2a;
+    transition: color 0.3s, transform 0.2s;
+    padding: 8px 12px;
+    font-weight: 500;
+}
+
+.sticky-nav-links button:hover {
+    color: #000;
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.3);
+    border-radius: 8px;
+}
+
+body.dark .sticky-nav-links button {
+    color: #aadba3;
+}
+
+body.dark .sticky-nav-links button:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+}
+
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+body.dark .burger-menu span { background-color: #eee; }
+
+.sticky-menu.nav-active .burger-menu span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.sticky-menu.nav-active .burger-menu span:nth-child(2) {
+    opacity: 0;
+}
+.sticky-menu.nav-active .burger-menu span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+/* --- 4. Основний контент --- */
+main {
+    margin-top: 40px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #2e3d2a;
+    font-size: 2.2rem;
+}
+body.dark h1 { color: #aadba3; }
+
+
+/* --- 5. Секція Історії та Фільтри --- */
+#historySection {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+
+.history-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-entry-button {
+    background: #4b6043;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(75, 96, 67, 0.3);
+}
+
+.add-entry-button:hover {
+    background: #3a4b34;
+    transform: scale(1.05);
+}
+body.dark .add-entry-button { background: #aadba3; color: #1e1e1e; }
+
+/* Панель фільтрів */
+.filter-controls {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+body.dark .filter-controls {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.filter-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.filter-date-input,
+.filter-mood-select {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    background-color: #fff;
+}
+body.dark .filter-date-input,
+body.dark .filter-mood-select {
+    background-color: #444;
+    color: #fff;
+    border-color: #555;
+}
+
+.tags-group {
+    width: 100%;
+    text-align: center;
+}
+
+.filter-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.filter-tag-item {
+    background: rgba(75, 96, 67, 0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+body.dark .filter-tag-item { background: rgba(170, 219, 163, 0.2); }
+
+.clear-filters-button {
+    padding: 8px 15px;
+    background: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.clear-filters-button:hover { background: #c9302c; }
+
+
+/* --- 6. Картки записів --- */
+#diaryListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- ВИПРАВЛЕНО: Група дат тепер флекс-контейнер --- */
+.date-group {
+    margin-bottom: 25px;
+    display: flex;       /* Щоб картки всередині мали відступи */
+    flex-direction: column;
+    gap: 15px;           /* Відступ між картками однієї дати */
+}
+
+.date-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4b6043;
+    border-bottom: 2px solid #aacdaa;
+    padding-bottom: 5px;
+    margin-bottom: 5px; /* Трохи зменшив */
+}
+body.dark .date-title { color: #aadba3; border-color: #2a4b2a; }
+
+/* --- ВИПРАВЛЕНО: Картка --- */
+.card {
+    position: relative; /* Щоб позиціонувати олівець абсолютно */
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    cursor: pointer;
+    border-left: 5px solid #4b6043;
+    display: flex;
+    flex-direction: column;
+}
+body.dark .card {
+    background: rgba(40, 40, 40, 0.8);
+    border-left: 5px solid #aadba3;
+    color: #eee;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 1);
+}
+body.dark .card:hover { background: rgba(50, 50, 50, 1); }
+
+.card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    padding-right: 30px; /* Відступ справа, щоб текст не наліз на олівець */
+}
+
+.card-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+body.dark .card-info { color: #bbb; }
+
+.card-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: #e0e8e0;
+    color: #2e3d2a;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+body.dark .tag { background: #2a4b2a; color: #eee; }
+
+/* --- ВИПРАВЛЕНО: Іконка редагування --- */
+.card-edit {
+    position: absolute; /* Абсолютне позиціонування */
+    top: 15px;          /* Відступ зверху */
+    right: 15px;        /* Відступ справа */
+    font-size: 1.2rem;
+    color: #4b6043;
+    cursor: pointer;
+}
+body.dark .card-edit { color: #aadba3; }
+
+
+/* --- 7. Статистика --- */
+#statsSection {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+    display: none;
+}
+
+#statsSection h2 {
+    color: #2e3d2a;
+}
+body.dark #statsSection h2 { color: #aadba3; }
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+body.dark .chart-container { background: rgba(0, 0, 0, 0.3); }
+
+
+/* --- 8. Модальне вікно --- */
+#modalOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+}
+
+#editModal {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; max-width: 500px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 2001;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: #333;
+}
+body.dark #editModal { background: #2c3e2c; color: #eee; }
+
+#editModal h3 {
+    margin-top: 0;
+    color: #4b6043;
+}
+body.dark #editModal h3 { color: #aadba3; }
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    background: none; border: none;
+    font-size: 2rem; cursor: pointer;
+    color: #999;
+}
+.modal-close-btn:hover { color: #333; }
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+body.dark .form-group input, body.dark .form-group textarea {
+    background: #444; color: #fff; border: 1px solid #555;
+}
+
+#modalMoodSlider {
+    width: 100%;
+    accent-color: #4b6043;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+.modal-confirm-btn {
+    background: #4b6043;
+    color: white;
+    padding: 10px 20px;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+.modal-confirm-btn:hover { background: #3a4b34; }
+body.dark .modal-confirm-btn { background: #aadba3; color: #1e1e1e; }
+
+.modal-delete-btn {
+    background: #d9534f;
+    color: white;
+    padding: 10px 20px;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+}
+.modal-delete-btn:hover { background: #c9302c; }
+
+.new-tag-group {
+    display: flex;
+    gap: 10px;
+}
+.add-new-tag-btn {
+    background: #666;
+    color: white;
+    border: none; padding: 0 15px;
+    border-radius: 8px; cursor: pointer;
+}
+
+
+/* --- 9. Футер --- */
+footer {
+    margin-top: auto;
+    background: #e9e9e9;
+    color: #555;
+    padding: 20px;
+    text-align: center;
+}
+body.dark footer { background: #1a1a1a; color: #888; }
+
+
+/* --- 10. АДАПТИВНІСТЬ (MOBILE) --- */
+@media (max-width: 768px) {
+    header {
+        display: none;
+    }
+
+    .sticky-menu {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        border-radius: 0;
+        padding: 10px 20px;
+    }
+
+    .sticky-logo {
+        position: static;
+        transform: none;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .sticky-nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: rgba(255,255,255,0.95);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        gap: 10px;
+    }
+
+    .sticky-menu.nav-active .sticky-nav-links {
+        display: flex;
+    }
+
+    body.dark .sticky-nav-links {
+        background: #2c3e2c;
+    }
+
+    .sticky-nav-links button {
+        text-align: left;
+        width: 100%;
+        padding: 15px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    main {
+        padding-top: 120px;
+    }
+
+    .history-controls {
+        margin-top: 80px;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #statsSection {
+        margin-top: 120px; /* Відступ від верху */
+        padding: 0 15px;   /* Відступи з боків */
+        width: 100%;       /* Ширина на весь екран */
+        box-sizing: border-box; /* ВАЖЛИВО: враховувати padding у ширину */
+        overflow-x: hidden;     /* Ховаємо все, що вилазить по горизонталі */
+    }
+
+    #statsSection h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        word-wrap: break-word; /* Переносити довгі слова, якщо треба */
+    }
+
+    .chart-container {
+        width: 100%;           /* Ширина контейнера графіка */
+        max-width: 100%;       /* Не більше ширини батька */
+        height: 300px;         /* Фіксована висота для мобільного */
+        padding: 10px;
+        box-sizing: border-box; /* ВАЖЛИВО: padding не розширює блок */
+        margin: 0 auto;        /* Центрування */
+    }
+
+    /* Додатково: переконаємось, що canvas всередині теж не вилазить */
+    .chart-container canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+
+    .rec-card {
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        line-height: 1.5;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Позитивна порада - зелена */
+    .rec-card.positive {
+        background: #d4edda;
+        color: #155724;
+        border-left: 5px solid #28a745;
+    }
+
+    /* Негативна порада - червона/рожева */
+    .rec-card.negative {
+        background: #f8d7da;
+        color: #721c24;
+        border-left: 5px solid #dc3545;
+    }
+
+    /* Нейтральна - сіра/синя */
+    .rec-card.neutral {
+        background: #e2e3e5;
+        color: #383d41;
+        border-left: 5px solid #6c757d;
+    }
+
+    /* Іконки (емодзі) */
+    .rec-icon {
+        font-size: 1.5rem;
+    }
+}

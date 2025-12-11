@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизація - MindTrack</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="icons/logo.png">
+</head>
+<body id="page-auth">
+
+<button id="themeToggleBtn" class="theme-toggle">Тема</button>
+
+<div class="auth-container">
+
+    <form id="registerForm" class="auth-form">
+        <h1>Створити акаунт</h1>
+
+        <div class="form-group">
+            <label for="regName">Ім'я</label>
+            <input type="text" id="regName" required placeholder="Ваше ім'я">
+        </div>
+
+        <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" required>
+        </div>
+
+        <div class="form-group">
+            <label for="regPassword">Пароль</label>
+            <input type="password" id="regPassword" required>
+        </div>
+
+        <div class="form-group">
+            <label for="regPasswordConfirm">Повторіть пароль</label>
+            <input type="password" id="regPasswordConfirm" required>
+        </div>
+
+        <div id="registerError" class="auth-error"></div>
+
+        <button type="submit" class="auth-button">Зареєструватися</button>
+
+        <p class="form-switcher">
+            Вже маєш обліковий запис? <span id="showLoginBtn">Увійти</span>
+        </p>
+    </form>
+
+    <form id="loginForm" class="auth-form" style="display: none;">
+        <h1>Вхід у MindTrack</h1>
+
+        <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required>
+        </div>
+
+        <div class="form-group">
+            <label for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" required>
+        </div>
+
+        <div id="loginError" class="auth-error"></div>
+
+        <button type="submit" class="auth-button">Увійти</button>
+
+        <p class="form-switcher">
+            Немає акаунту? <span id="showRegisterBtn">Зареєструватися</span>
+        </p>
+    </form>
+
+</div>
+
+<script src="api.js"></script>
+<script src="auth.js" defer></script>
+</body>
+</html>
