@@ -1,0 +1,98 @@
+/* --- index.css --- */
+
+/* 1. Глобальні налаштування (Body & Main) */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle, rgba(180,180,180,0.35) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    color: #333;
+    transition: background 0.5s, color 0.5s;
+    min-height: 100vh;
+}
+
+body.dark {
+    background: #1e1e1e;
+    color: #eee;
+}
+
+main {
+    display: block;
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* 2. Стилі специфічні для сторінки index.html */
+#page-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-index main {
+    margin: 0 auto;
+}
+
+#page-index main h1 {
+    font-size: 2.5rem;
+    color: #2e3d2a;
+    margin-bottom: 0.5em;
+}
+
+#page-index body.dark main h1 {
+    color: #aadba3;
+}
+
+#page-index main .description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 20px auto 30px;
+}
+
+/* 3. Кнопка входу/реєстрації */
+.main-auth-button {
+    display: inline-block;
+    background: #4b6043;
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 14px 28px;
+    border-radius: 12px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(75, 96, 67, 0.3);
+    text-decoration: none;
+}
+
+.main-auth-button:hover {
+    background: #3a4b34;
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(75, 96, 67, 0.4);
+}
+
+body.dark .main-auth-button {
+    background: #aadba3;
+    color: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(170, 219, 163, 0.2);
+}
+
+body.dark .main-auth-button:hover {
+    background: #c0e6bc;
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(170, 219, 163, 0.3);
+}
+
+/* 4. Адаптивність (Mobile) */
+@media (max-width: 768px) {
+    #page-index main h1 {
+        font-size: 2rem;
+    }
+
+    #page-index main .description {
+        font-size: 1rem;
+    }
+}

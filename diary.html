@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindTrack</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="diary.css">
     <link rel="icon" type="image/png" href="icons/logo.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -34,12 +34,12 @@
     </div>
 </div>
 
-<main>
+<main id="homeSection">
     <h1>Вітаю у твоєму щоденнику MindTrack!</h1>
     <p>Тут ти можеш відслідковувати свої записи та настрій.</p>
 </main>
 
-<section id="historySection">
+<section id="historySection" style="display: none;">
     <div class="history-controls">
         <button id="addEntryBtn" class="add-entry-button">Створити запис</button>
     </div>
@@ -53,16 +53,16 @@
             <label for="filterMood">Пошук за настроєм:</label>
             <select id="filterMood" class="filter-mood-select">
                 <option value="">Усі настрої</option>
-                <option value="1">1 (Дуже погано)</option>
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="5">5 (Нейтрально)</option>
+                <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
-                <option value="10">10 (Чудово)</option>
+                <option value="10">10</option>
             </select>
         </div>
         <div class="filter-group tags-group">
@@ -76,12 +76,15 @@
     <div id="diaryListContainer"></div>
 </section>
 
-<section id="statsSection">
+<section id="statsSection" style="display: none;">
+    <div id="recommendationsContainer" style="max-width: 800px; margin: 20px auto; display: none;">
+    </div>
     <h2>Статистика настрою</h2>
     <div class="chart-container">
         <canvas id="averageMoodChart"></canvas>
     </div>
 </section>
+
 <div id="modalOverlay"></div>
 <div id="editModal">
     <h3>Редагування запису</h3>
@@ -122,6 +125,7 @@
     </div>
 </footer>
 
+<script src="api.js"></script>
 <script src="script.js" defer></script>
 </body>
 </html>

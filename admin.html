@@ -4,22 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel - MindTrack</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="admin.css">
   <link rel="icon" type="image/png" href="icons/logo.png">
 </head>
 <body id="page-admin">
 
 <div class="sticky-menu" id="stickyMenu">
   <img src="icons/logo.png" alt="Логотип" class="sticky-logo">
-  <div class="sticky-nav-links" id="stickyNavLinks">
-    <button id="themeBtnSticky">Тема</button>
-    <button onclick="window.location.href='index.html'">Вихід</button>
-  </div>
-  <div class="burger-menu" id="burgerMenu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  <div class.sticky-nav-links" id="stickyNavLinks"></div>
+  <button id="themeBtnSticky">Тема</button>
+  <button onclick="window.location.href='index.html'">Вихід</button>
+</div>
+<div class="burger-menu" id="burgerMenu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 </div>
 
 <main>
@@ -30,20 +32,77 @@
     <div class="admin-group">
       <h3>Пошук користувачів</h3>
       <label for="userSearchInput">Пошук за Email або ID:</label>
-      <input type="text" id="userSearchInput" placeholder="Введіть email або ID...">
+      <input type="text" id="userSearchInput" placeholder="Введіть email (напр. user1@example.com)">
       <button id="userSearchBtn" class="admin-button">Знайти</button>
     </div>
 
-    <div class="admin-group">
-      <h3>Керування записами</h3>
-      <label for="deleteDateInput">Видалити всі записи за дату:</label>
-      <input type="date" id="deleteDateInput">
-      <button id="deleteDateBtn" class="admin-button danger-button">Видалити за дату</button>
-    </div>
+    <section id="userManagementSection" style="display: none;">
 
+      <h2 id="currentUserDisplay"></h2>
+
+      <div class="admin-group">
+        <h3>Керування спільними тегами</h3>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">Ці теги будуть доступні всім користувачам.</p>
+
+        <div class="controls-wrapper">
+          <div style="display: flex; gap: 10px; flex-grow: 1;">
+            <input type="text" id="commonTagInput" placeholder="Назва тегу (напр. 'свято')" style="margin-bottom: 0;">
+            <button id="addCommonTagBtn" class="admin-button">Додати</button>
+          </div>
+        </div>
+
+        <div id="commonTagsList" class="filter-tags-container" style="margin-top: 15px;">
+        </div>
+        <h3>Керування записами</h3>
+        <div class="controls-wrapper">
+          <button id="createEntryBtn" class="admin-button">Створити запис для користувача</button>
+          <div class="filter-group">
+            <label for="filterDateInput">Пошук записів за датою:</label>
+            <input type="date" id="filterDateInput" class="filter-date-input">
+          </div>
+        </div>
+      </div>
+
+      <div id="userEntryListContainer">
+      </div>
+
+    </section>
   </section>
 </main>
 
+<div id="modalOverlay"></div>
+<div id="editModal">
+  <h3>Редагування запису</h3>
+  <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+  <form id="editForm">
+    <div class="form-group">
+      <label for="modalTitle">Заголовок:</label>
+      <input type="text" id="modalTitle" required>
+    </div>
+    <div class="form-group">
+      <label for="modalText">Ваш запис:</label>
+      <textarea id="modalText" rows="6"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="modalMoodSlider">Настрій: <span id="modalMoodValue">5</span>/10</label>
+      <input type="range" id="modalMoodSlider" min="1" max="10" value="5">
+    </div>
+    <div class="form-group">
+      <label>Теги:</label>
+      <div id="modalTagsContainer" class="filter-tags-container">
+      </div>
+    </div>
+    <div class="form-group new-tag-group">
+      <input type="text" id="newTagInput" placeholder="Новий тег...">
+      <button type="button" id="addNewTagBtn" class="add-new-tag-btn">Додати</button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" id="modalDeleteBtn" class="modal-delete-btn">🗑️ Видалити</button>
+      <button type="submit" id="modalConfirmBtn" class="modal-confirm-btn">Підтвердити</button>
+    </div>
+  </form>
+</div>
+<script src="api.js"></script>
 <script src="admin.js" defer></script>
 </body>
 </html>
